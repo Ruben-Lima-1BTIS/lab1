@@ -9,7 +9,7 @@
 </head>
 <body>
   <header>
-    <h1>🌸REST API + Integração com Java</h1>
+    <h1>REST API + Integração com Java</h1>
     <p>Guia para aprender REST API, integração com Java e boas práticas.</p>
   </header>
 
@@ -110,89 +110,89 @@ public class UserController {
     <h2>Exemplos práticos (frontend com fetch)</h2>
 
     <div class="card">
-      <h3>GET /api/users</h3>
+      <h3>GET /api/pokemon</h3>
       <pre>
-fetch('http://localhost:8080/api/users')
+fetch('http://localhost:8080/api/pokemon')
   .then(res => res.json())
   .then(data => console.log(data));
       </pre>
-      <p>Obtém a lista de utilizadores em formato JSON.</p>
+      <p>Obtém a lista de Pokémons em formato JSON.</p>
     </div>
-
     <div class="card">
-      <h3>POST /api/users</h3>
+      <h3>POST /api/pokemon</h3>
       <pre>
-fetch('http://localhost:8080/api/users', {
+fetch('http://localhost:8080/api/pokemon', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ name: 'Rúben', city: 'Lisboa' })
+  body: JSON.stringify({
+    name: 'squirtle',
+    types: ['water'],
+    stats: [
+      { stat: 'hp', base: 44 },
+      { stat: 'attack', base: 48 },
+      { stat: 'defense', base: 65 },
+      { stat: 'special-attack', base: 50 },
+      { stat: 'special-defense', base: 64 },
+      { stat: 'speed', base: 43 }
+    ]
+  })
 })
   .then(res => res.json())
   .then(data => console.log(data));
       </pre>
-      <p>👉 Cria um novo utilizador enviando JSON no corpo da requisição.</p>
+      <p>Cria um novo Pokémon com JSON.</p>
     </div>
-
     <div class="card">
-      <h3>PUT /api/users/{id}</h3>
+      <h3>PUT /api/pokemon/{id}</h3>
       <pre>
-fetch('http://localhost:8080/api/users/1', {
+fetch('http://localhost:8080/api/pokemon/1', {
   method: 'PUT',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ name: 'Rúben', city: 'Porto' })
+  body: JSON.stringify({
+    name: 'squirtle',
+    types: ['water'],
+    stats: [
+      { stat: 'hp', base: 50 }, // atualizado
+      { stat: 'attack', base: 55 },
+      { stat: 'defense', base: 70 },
+      { stat: 'special-attack', base: 52 },
+      { stat: 'special-defense', base: 68 },
+      { stat: 'speed', base: 45 }
+    ]
+  })
 })
   .then(res => res.json())
   .then(data => console.log(data));
       </pre>
-      <p>👉 Atualiza o utilizador com ID 1.</p>
+      <p>Atualiza o Pokémon com ID 1 (Podes usar quando o Pokémon evolui).</p>
     </div>
-
     <div class="card">
-      <h3>DELETE /api/users/{id}</h3>
+      <h3>DELETE /api/pokemon/{id}</h3>
       <pre>
-fetch('http://localhost:8080/api/users/1', { method: 'DELETE' })
+fetch('http://localhost:8080/api/pokemon/1', { method: 'DELETE' })
   .then(res => console.log(res.status)); // 204 esperado
       </pre>
-      <p>👉 Remove o utilizador com ID 1.</p>
+      <p>Remove o Pokémon com ID 1.</p>
     </div>
   </section>
 
   <section>
-    <h2>📊 Status Codes</h2>
-    <table>
-      <tr>
-        <th>Código</th>
-        <th>Significado</th>
-        <th>Exemplo</th>
-      </tr>
-      <tr><td>200</td><td>OK (sucesso)</td><td>GET /api/users</td></tr>
-      <tr><td>201</td><td>Created (criado)</td><td>POST /api/users</td></tr>
-      <tr><td>204</td><td>No Content (sem retorno)</td><td>DELETE /api/users/{id}</td></tr>
-      <tr><td>400</td><td>Bad Request (erro cliente)</td><td>Campos inválidos</td></tr>
-      <tr><td>401</td><td>Unauthorized (não autenticado)</td><td>Falta login/token</td></tr>
-      <tr><td>403</td><td>Forbidden (sem permissão)</td><td>Acesso negado</td></tr>
-      <tr><td>404</td><td>Not Found (não encontrado)</td><td>ID inexistente</td></tr>
-      <tr><td>500</td><td>Internal Server Error</td><td>Erro inesperado no backend</td></tr>
-    </table>
-  </section>
-
-    <section>
-    <h2>✅ Boas práticas</h2>
-    <ul>
-      <li><strong>Validação:</strong> garantir que campos obrigatórios não vêm vazios. Exemplo: não permitir criar um utilizador sem nome.</li>
-      <li><strong>Mensagens claras:</strong> backend deve devolver erros compreensíveis, como <code>{"error":"Nome é obrigatório"}</code>.</li>
-      <li><strong>Segurança:</strong> usar autenticação (JWT, OAuth) para proteger endpoints sensíveis.</li>
-      <li><strong>Versionamento:</strong> usar versões na API, ex.: <code>/api/v1/users</code>, para evoluir sem quebrar clientes antigos.</li>
-      <li><strong>Documentação:</strong> usar Swagger/OpenAPI para explicar endpoints e permitir testes interativos.</li>
-      <li><strong>Consistência:</strong> manter nomes de endpoints e respostas padronizados. Ex.: sempre usar plural (<code>/api/users</code>).</li>
-      <li><strong>Paginação:</strong> para listas grandes, devolver resultados em páginas (<code>/api/users?page=1&size=20</code>).</li>
-      <li><strong>Logs e monitorização:</strong> registar erros e métricas para acompanhar desempenho da API.</li>
-    </ul>
-  </section>
-
-  <footer style="background:#333;color:#fff;text-align:center;padding:1rem;">
-    <p>📘 Este guia foi criado para ensinar REST API e integração com Java de forma prática e clara.</p>
-    <p>Continua a praticar e cria os teus próprios endpoints!</p>
-  </footer>
+  <h2>📊 Status Codes (Pokémon)</h2>
+  <table>
+    <tr>
+      <th>Código</th>
+      <th>Significado</th>
+      <th>Exemplo</th>
+    </tr>
+    <tr><td>200</td><td>OK (sucesso)</td><td>GET /api/pokemon</td></tr>
+    <tr><td>201</td><td>Created (criado)</td><td>POST /api/pokemon</td></tr>
+    <tr><td>204</td><td>No Content (sem retorno)</td><td>DELETE /api/pokemon/{id}</td></tr>
+    <tr><td>400</td><td>Bad Request (erro cliente)</td><td>Campos inválidos (ex.: stats sem valor)</td></tr>
+    <tr><td>401</td><td>Unauthorized (não autenticado)</td><td>Falta login/token para aceder a Pokémon raros</td></tr>
+    <tr><td>403</td><td>Forbidden (sem permissão)</td><td>Acesso negado a endpoints protegidos</td></tr>
+    <tr><td>404</td><td>Not Found (não encontrado)</td><td>Pokémon com ID inexistente</td></tr>
+    <tr><td>500</td><td>Internal Server Error</td><td>Erro inesperado no backend</td></tr>
+  </table>
+</section>
 </body>
 </html>
