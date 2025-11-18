@@ -1,0 +1,117 @@
+/* Fonte kawaii */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap');
+
+body {
+  font-family: 'Baloo 2', cursive;
+  background: #e6f7ff; /* azul pastel */
+  color: #444;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+  background: #ffc0cb; /* rosa pastel */
+  color: #fff;
+  text-align: center;
+  padding: 2rem;
+  border-bottom: 4px dotted #ffe4e1;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+/* Seções */
+section {
+  max-width: 900px;
+  margin: 2rem auto;
+  background: #fff; /* branco clean */
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Títulos */
+h2 {
+  color: #ff69b4;
+  margin-bottom: 1rem;
+}
+
+/* Listas */
+ul {
+  list-style: "🌸 ";
+  padding-left: 1.2rem;
+}
+
+/* Cards */
+.card {
+  background: #fff;
+  border: 2px dashed #ffc0cb;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 15px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+}
+
+/* Código */
+pre {
+  background: #fdfdfd;
+  color: #333;
+  padding: 1rem;
+  border-radius: 12px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+
+/* Tabelas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+table, th, td {
+  border: 1px solid #ffc0cb;
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+}
+
+th {
+  background: #ffc0cb;
+  color: #fff;
+}
+
+/* Botões */
+.btn {
+  display: inline-block;
+  background: #ffc0cb; /* rosa pastel */
+  color: white;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  border-radius: 25px;
+  margin-top: 1rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: #ff85c1;
+  transform: scale(1.05);
+}
+
+/* Rodapé */
+footer {
+  background: #ffc0cb;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  border-top: 4px dotted #ffe4e1;
+}

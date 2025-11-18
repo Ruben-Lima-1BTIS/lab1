@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <title>REST API + Integração com Java</title>
+</head>
+<body>
+  <header>
+    <h1>🌸REST API + Integração com Java</h1>
+    <p>Guia para aprender REST API, integração com Java e boas práticas.</p>
+  </header>
+
+  <section>
+    <h2>O que é uma API?</h2>
+    <p>Uma API (Application Programming Interface) é como se fosse um empregado de mesa de um restaurante:</p>
+    <ul>
+      <li>O cliente (frontend) pede algo.</li>
+      <li>O empregado de mesa (API) leva o pedido à cozinha.</li>
+      <li>A cozinha (backend) prepara e devolve a resposta.</li>
+    </ul>
+    <p>A API é a ponte entre o frontend e o backend.</p>
+  </section>
+
+  <section>
+    <h2>O que é REST?</h2>
+    <ul>
+      <li><strong>REST</strong>: Estilo arquitetural para criar APIs.</li>
+      <li><strong>HTTP</strong>: Usa métodos como GET, POST, PUT, DELETE.</li>
+      <li><strong>JSON</strong>: Código semi-estruturado leve e fácil de ler para troca de dados.</li>
+      <li><strong>Recursos</strong>: Cada entidade é acedida por um endpoint (ex.: <code>/api/users</code>).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Integração com Java (Spring Boot)</h2>
+    <p>O Java com Spring Boot é muito usado para criar APIs REST.</p>
+    <div class="card">
+      <h3>Exemplo em Java Spring Boot</h3>
+      <pre>
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+
+    // Vai retornar uma lista de utilizadores
+    @GetMapping
+    public List<User> getUsers() {
+        return List.of(new User(1, "Ruben", "Lisboa"));
+    }
+    
+    // Vai criar um novo utilizador
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        return user;
+    }
+
+    // Vai atualizar um utilizador existente
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable int id, @RequestBody User user) {
+        user.setId(id);
+        return user;
+    }
+
+    // Vai remover um utilizador
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable int id) {
+        user.removeIf(u -> u.getId() == id);
+    }
+}
+      </pre>
+      <p>Cada método no controller é ligado a um método HTTP e define a ação que deve ser realizada sobre o recurso.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Operações comuns (CRUD)</h2>
+    <ul>
+      <li><strong>GET</strong>: Ler dados</li>
+      <li><strong>POST</strong>: Criar recurso</li>
+      <li><strong>PUT</strong>: Atualizar recurso</li>
+      <li><strong>DELETE</strong>: Remover recurso</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Dados em formato JSON</h2>
+
+    <div class="card">
+      <h3>JSON</h3>
+      <pre>
+{
+  "name": "squirtle",
+  "types": ["water"],
+  "stats": [
+    { "stat": "hp", "base": 44 },
+    { "stat": "attack", "base": 48 },
+    { "stat": "defense", "base": 65 },
+    { "stat": "special-attack", "base": 50 },
+    { "stat": "special-defense", "base": 64 },
+    { "stat": "speed", "base": 43 }
+  ]
+}
+      </pre>
+      <p>Obtém a dados em formato JSON.</p>
+    </div>
+
+  <section>
+    <h2>Exemplos práticos (frontend com fetch)</h2>
+
+    <div class="card">
+      <h3>GET /api/users</h3>
+      <pre>
+fetch('http://localhost:8080/api/users')
+  .then(res => res.json())
+  .then(data => console.log(data));
+      </pre>
+      <p>Obtém a lista de utilizadores em formato JSON.</p>
+    </div>
+
+    <div class="card">
+      <h3>POST /api/users</h3>
+      <pre>
+fetch('http://localhost:8080/api/users', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'Rúben', city: 'Lisboa' })
+})
+  .then(res => res.json())
+  .then(data => console.log(data));
+      </pre>
+      <p>👉 Cria um novo utilizador enviando JSON no corpo da requisição.</p>
+    </div>
+
+    <div class="card">
+      <h3>PUT /api/users/{id}</h3>
+      <pre>
+fetch('http://localhost:8080/api/users/1', {
+  method: 'PUT',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'Rúben', city: 'Porto' })
+})
+  .then(res => res.json())
+  .then(data => console.log(data));
+      </pre>
+      <p>👉 Atualiza o utilizador com ID 1.</p>
+    </div>
+
+    <div class="card">
+      <h3>DELETE /api/users/{id}</h3>
+      <pre>
+fetch('http://localhost:8080/api/users/1', { method: 'DELETE' })
+  .then(res => console.log(res.status)); // 204 esperado
+      </pre>
+      <p>👉 Remove o utilizador com ID 1.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>📊 Status Codes</h2>
+    <table>
+      <tr>
+        <th>Código</th>
+        <th>Significado</th>
+        <th>Exemplo</th>
+      </tr>
+      <tr><td>200</td><td>OK (sucesso)</td><td>GET /api/users</td></tr>
+      <tr><td>201</td><td>Created (criado)</td><td>POST /api/users</td></tr>
+      <tr><td>204</td><td>No Content (sem retorno)</td><td>DELETE /api/users/{id}</td></tr>
+      <tr><td>400</td><td>Bad Request (erro cliente)</td><td>Campos inválidos</td></tr>
+      <tr><td>401</td><td>Unauthorized (não autenticado)</td><td>Falta login/token</td></tr>
+      <tr><td>403</td><td>Forbidden (sem permissão)</td><td>Acesso negado</td></tr>
+      <tr><td>404</td><td>Not Found (não encontrado)</td><td>ID inexistente</td></tr>
+      <tr><td>500</td><td>Internal Server Error</td><td>Erro inesperado no backend</td></tr>
+    </table>
+  </section>
+
+    <section>
+    <h2>✅ Boas práticas</h2>
+    <ul>
+      <li><strong>Validação:</strong> garantir que campos obrigatórios não vêm vazios. Exemplo: não permitir criar um utilizador sem nome.</li>
+      <li><strong>Mensagens claras:</strong> backend deve devolver erros compreensíveis, como <code>{"error":"Nome é obrigatório"}</code>.</li>
+      <li><strong>Segurança:</strong> usar autenticação (JWT, OAuth) para proteger endpoints sensíveis.</li>
+      <li><strong>Versionamento:</strong> usar versões na API, ex.: <code>/api/v1/users</code>, para evoluir sem quebrar clientes antigos.</li>
+      <li><strong>Documentação:</strong> usar Swagger/OpenAPI para explicar endpoints e permitir testes interativos.</li>
+      <li><strong>Consistência:</strong> manter nomes de endpoints e respostas padronizados. Ex.: sempre usar plural (<code>/api/users</code>).</li>
+      <li><strong>Paginação:</strong> para listas grandes, devolver resultados em páginas (<code>/api/users?page=1&size=20</code>).</li>
+      <li><strong>Logs e monitorização:</strong> registar erros e métricas para acompanhar desempenho da API.</li>
+    </ul>
+  </section>
+
+  <footer style="background:#333;color:#fff;text-align:center;padding:1rem;">
+    <p>📘 Este guia foi criado para ensinar REST API e integração com Java de forma prática e clara.</p>
+    <p>Continua a praticar e cria os teus próprios endpoints!</p>
+  </footer>
+</body>
+</html>
